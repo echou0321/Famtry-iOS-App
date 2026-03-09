@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct famtryApp: App {
+    // We create one instance of the data here
+    @StateObject var pantryData = PantryData()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            PantryOverviewScreen()
+                .environmentObject(pantryData) // This shares it with all screens
         }
     }
 }
