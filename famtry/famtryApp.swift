@@ -45,9 +45,7 @@ struct PantryRootScreen: View {
 
     var body: some View {
         Group {
-            if !data.hasUser {
-                WelcomeScreen()
-            } else if !data.hasFamily {
+            if data.hasUser && !data.hasFamily {
                 NavigationView {
                     CreateOrJoinFamilyScreen()
                         .navigationTitle("Family")

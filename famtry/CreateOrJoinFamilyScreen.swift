@@ -31,6 +31,12 @@ struct CreateOrJoinFamilyScreen: View {
                         Text("Welcome, \(name)")
                             .font(.subheadline)
                             .foregroundColor(.gray)
+                    } else {
+                        Text("You need to log in before creating or joining a family.")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 24)
                     }
                 }
 
@@ -43,11 +49,13 @@ struct CreateOrJoinFamilyScreen: View {
                 .pickerStyle(.segmented)
                 .padding(.horizontal, 24)
 
-                Group {
-                    if mode == .create {
-                        createFamilyView
-                    } else {
-                        joinFamilyView
+                if data.currentUser != nil {
+                    Group {
+                        if mode == .create {
+                            createFamilyView
+                        } else {
+                            joinFamilyView
+                        }
                     }
                 }
 
@@ -141,6 +149,12 @@ struct CreateOrJoinFamilyScreen: View {
         errorMessage = nil
         isSubmitting = true
 
+        guard data.currentUser != nil else {
+            errorMessage = "Please log in first from the Profile tab."
+            isSubmitting = false
+            return
+        }
+
         let trimmed = familyNameToCreate.trimmingCharacters(in: .whitespacesAndNewlines)
         Task {
             do {
@@ -155,6 +169,12 @@ struct CreateOrJoinFamilyScreen: View {
     private func submitJoinFamily() {
         errorMessage = nil
         isSubmitting = true
+
+        guard data.currentUser != nil else {
+            errorMessage = "Please log in first from the Profile tab."
+            isSubmitting = false
+            return
+        }
 
         let trimmed = familyIdToJoin.trimmingCharacters(in: .whitespacesAndNewlines)
         Task {
