@@ -42,7 +42,7 @@ struct LoginCreateUserScreen: View {
                             .font(.subheadline)
                             .foregroundColor(.black)
 
-                        TextField("e.g. Alice", text: $name)
+                        TextField("e.g. Frecesca", text: $name)
                             .padding(.horizontal, 12)
                             .padding(.vertical, 10)
                             .background(
