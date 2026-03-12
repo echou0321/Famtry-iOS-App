@@ -194,7 +194,7 @@ final class APIClient {
     struct FamilyMember: Decodable, Identifiable {
         let id: String
         let name: String
-        let email: String
+        let email: String?
 
         enum CodingKeys: String, CodingKey {
             case id = "_id"

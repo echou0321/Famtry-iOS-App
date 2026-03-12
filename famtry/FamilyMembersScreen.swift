@@ -106,9 +106,11 @@ struct FamilyMembersScreen: View {
                     }
                 }
 
-                Text(member.email)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
+                if let email = member.email, !email.isEmpty {
+                    Text(email)
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                }
             }
 
             Spacer()
