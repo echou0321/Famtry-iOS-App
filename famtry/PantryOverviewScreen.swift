@@ -76,6 +76,11 @@ struct PantryOverviewScreen: View {
                     }
                 }
             }
+            .refreshable {
+                if data.hasUser && data.hasFamily {
+                    try? await data.fetchItems()
+                }
+            }
             .listStyle(PlainListStyle())
             .navigationTitle(data.hasUser && data.hasFamily ? "Shared Pantry" : "Pantry Preview")
             .toolbar {

@@ -98,13 +98,7 @@ struct ProfileScreen: View {
 
             // Settings-style grouped list
             List {
-                // Profile info section
-                Section("Profile") {
-                    Button {
-                        isEditingProfile = true
-                    } label: {
-                        Label("Edit Profile", systemImage: "pencil")
-                    }
+                Section {
 
                     if let gender = user.gender, !gender.isEmpty {
                         HStack {
