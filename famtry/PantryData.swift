@@ -250,6 +250,28 @@ class PantryData: ObservableObject {
         items.removeAll { $0.id == id }
     }
 
+    func itemsExpiringInOneDay(from now: Date = Date()) -> [PantryItem] {
+        let calendar = Calendar.current
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: now)!
+
+        return items.filter { item in
+            guard let expirationDate = item.expirationDate else { return false }
+            return calendar.isDate(expirationDate, inSameDayAs: tomorrow)
+        }
+    }
+    
+    func itemsExpiringTomorrow(from now: Date = Date()) -> [PantryItem] {
+        let calendar = Calendar.current
+        guard let tomorrow = calendar.date(byAdding: .day, value: 1, to: now) else {
+            return []
+        }
+
+        return items.filter { item in
+            guard let expirationDate = item.expirationDate else { return false }
+            return calendar.isDate(expirationDate, inSameDayAs: tomorrow)
+        }
+    }
+    
     private func sortItemsByExpiration(_ items: [PantryItem]) -> [PantryItem] {
         items.sorted { lhs, rhs in
             switch (lhs.expirationDate, rhs.expirationDate) {
